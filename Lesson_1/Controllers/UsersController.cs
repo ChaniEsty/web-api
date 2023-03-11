@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using Services;
 using System.Text.Json;
 using static System.Runtime.InteropServices.JavaScript.JSType;
+using Zxcvbn;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -30,14 +31,20 @@ namespace Lesson1_login.Controllers
             return user == null ? NotFound() :user;
                    
         }
-      
+        [HttpGet]
+        public int GetPasswordStrength([FromQuery] string password)
+        {
+            var result = Zxcvbn.Core.EvaluatePassword(password);
+            return result.Score;
+
+        }
+
 
         // POST api/<LoginController>
         [HttpPost]
         public ActionResult<User> Post([FromBody] User user)
         {
 
-        
             return usersService.CreataeUser(user); ;
 
 

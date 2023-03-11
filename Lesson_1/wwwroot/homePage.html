@@ -68,35 +68,32 @@
     <body>
          <div id="login-form">
             <h2>Sign In</h2>
-            <form>
+            
 
                 <br /><br />
                 <input id="userNameLogIn" type="text" placeholder="user name" /><br /><br />
                 <input id="userPasswordLogIn" type="password" placeholder="user password" /><br /><br />
                 <button onclick="signIn()">log in</button><br /><br /><br />
-                <!--<button id="newUser" onclick="newUser()">new user</button>-->
                 <div id="signup-link">
                     <a onclick="document.getElementById('signup-form').style.display = 'block'">Create an account</a>
                 </div>
-            </form>
+            
          </div>
          <div id="signup-form" style="display: none;">
             <h2>Sign Up</h2>
                
-            <form>
 
                 <br /><br /><br /><br />
                 <label> email</label>
                 <input id="email" type="email" /><br /><br />
                 <label>password</label>
-                <input id="password" type="password" /><br /><br />
+                <input onchange="passwordStrength()" id="password" type="password" /><br /><br />
                 <label>last name</label>
                 <input id="lastName" type="text" /><br /><br />
                 <label>first name</label>
                 <input id="firstName" type="text" /><br /><br />
                 <button onclick="signUp()">register </button>
 
-            </form>
         </div>
     </body>
 

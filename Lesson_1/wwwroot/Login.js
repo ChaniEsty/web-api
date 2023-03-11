@@ -1,4 +1,13 @@
-﻿const signUp = async () => {
+﻿const passwordStrength =async () => {
+    let password = document.getElementById("password").value;
+    const res = await fetch("api/Users?password="+password,
+        {
+            method: 'GET',
+        })
+    const t = await res.json();
+    alert(t);
+}
+const signUp = async () => {
     let email = document.getElementById("email").value;
     let password = document.getElementById("password").value;
     let firstName = document.getElementById("firstName").value;
@@ -38,7 +47,7 @@ const signIn = async () => {
             headers: { 'Content-Type': 'application/json' },
             body: User
         })
-    alert("just checking")
+    //alert("just checking")
     if (res.ok) {
         const user = await res.json();
         sessionStorage.setItem('user', JSON.stringify(user));
