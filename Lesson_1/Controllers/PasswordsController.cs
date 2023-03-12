@@ -1,19 +1,33 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Services;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace Web-Api.Controllers
+namespace Lesson1_login.Controllers
 {
-    [Route("api/[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class PasswordsController : ControllerBase
 {
-    // GET: api/<PasswordsController>
-    [HttpGet]
+    IPasswordsService passwordsService ;
+
+        public PasswordsController(IPasswordsService passwordsService)
+        {
+            this.passwordsService = passwordsService;
+        }
+
+        // GET: api/<PasswordsController>
+        [HttpGet]
     public IEnumerable<string> Get()
     {
         return new string[] { "value1", "value2" };
     }
+    [HttpPost]
+    public int GetPasswordStrength([FromBody] string password)
+    {
+            return passwordsService.GetPasswordStrength(password);
+
+        }
 
     // GET api/<PasswordsController>/5
     [HttpGet("{id}")]
@@ -23,10 +37,10 @@ public class PasswordsController : ControllerBase
     }
 
     // POST api/<PasswordsController>
-    [HttpPost]
-    public void Post([FromBody] string value)
-    {
-    }
+    //[HttpPost]
+    //public void Post([FromBody] string value)
+    //{
+    //}
 
     // PUT api/<PasswordsController>/5
     [HttpPut("{id}")]

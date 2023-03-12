@@ -1,7 +1,12 @@
+using Repositories;
+using Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddTransient<IUsersService, UsersService>();
+builder.Services.AddTransient<IUsersRepository, UsersRepository>();
+builder.Services.AddTransient<IPasswordsService, PasswordsService>();
 builder.Services.AddControllers();
 
 var app = builder.Build();

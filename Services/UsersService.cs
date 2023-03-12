@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class UsersService
+    public class UsersService : IUsersService
     {
 
-        private UsersRepository usersRepository = new UsersRepository();
+        private IUsersRepository usersRepository;
         static private string path = "Entities\\Db.txt";
+
+        public UsersService(IUsersRepository usersRepository)
+        {
+            this.usersRepository = usersRepository;
+        }
 
         public User GetUserById(int id)
         {
@@ -24,8 +29,8 @@ namespace Services
 
         public User CreataeUser(User user)
         {
-           
-           return usersRepository.CreataeUser(user);
+
+            return usersRepository.CreataeUser(user);
 
 
         }
@@ -39,7 +44,7 @@ namespace Services
         public void UpdateUser(int id, User userToUpdate)
         {
 
-            usersRepository.UpdateUser(id,userToUpdate);
+            usersRepository.UpdateUser(id, userToUpdate);
         }
 
 

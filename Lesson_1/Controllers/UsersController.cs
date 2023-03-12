@@ -15,7 +15,13 @@ namespace Lesson1_login.Controllers
     public class UsersController : ControllerBase
     {
 
-        private UsersService usersService = new UsersService();
+        private IUsersService usersService;
+
+        public UsersController(IUsersService usersService)
+        {
+            this.usersService = usersService;
+        }
+
         // GET: api/<LoginController>
         //[HttpGet]
         //public IEnumerable<string> Get()
@@ -31,13 +37,13 @@ namespace Lesson1_login.Controllers
             return user == null ? NotFound() :user;
                    
         }
-        [HttpGet]
-        public int GetPasswordStrength([FromQuery] string password)
-        {
-            var result = Zxcvbn.Core.EvaluatePassword(password);
-            return result.Score;
+        //[HttpGet]
+        //public int GetPasswordStrength([FromQuery] string password)
+        //{
+        //    var result = Zxcvbn.Core.EvaluatePassword(password);
+        //    return result.Score;
 
-        }
+        //}
 
 
         // POST api/<LoginController>

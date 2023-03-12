@@ -1,11 +1,20 @@
 ﻿const passwordStrength =async () => {
     let password = document.getElementById("password").value;
-    const res = await fetch("api/Users?password="+password,
+    const res = await fetch("api/Passwords",
         {
-            method: 'GET',
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(password)
         })
-    const t = await res.json();
-    alert(t);
+    const score = await res.json();
+    const progress = document.getElementById("progress");
+    progress.value=score;
+    //let progress = document.createElement("progress");
+    //progress.ariaValueMax = 4;
+    //progress.ariaValueMin = 0;
+    //progress.ariaValueNow = 0;
+    //divSignUp.appendChild(progress);
+    //alert(score);
 }
 const signUp = async () => {
     let email = document.getElementById("email").value;
