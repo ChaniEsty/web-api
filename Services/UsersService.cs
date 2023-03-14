@@ -20,31 +20,32 @@ namespace Services
             this.usersRepository = usersRepository;
         }
 
-        public User GetUserById(int id)
+        public async Task<User> GetUserById(int id)
         {
+            return  await usersRepository.GetUserById(id);
 
-            return usersRepository.GetUserById(id);
+           
         }
 
 
-        public User CreataeUser(User user)
+        public async Task<User> CreataeUser(User user)
         {
 
-            return usersRepository.CreataeUser(user);
+            return await usersRepository.CreataeUser(user);
 
 
         }
 
-        public User SignIN(User data)
+        public async Task<User> SignIN(User data)
         {
-            return usersRepository.SignIN(data);
+            return await usersRepository.SignIN(data);
 
         }
 
-        public void UpdateUser(int id, User userToUpdate)
+        public async Task UpdateUser(int id, User userToUpdate)
         {
 
-            usersRepository.UpdateUser(id, userToUpdate);
+            await usersRepository.UpdateUser(id, userToUpdate);
         }
 
 
