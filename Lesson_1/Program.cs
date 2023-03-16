@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Repositories;
 using Services;
 
@@ -8,7 +9,7 @@ builder.Services.AddTransient<IUsersService, UsersService>();
 builder.Services.AddTransient<IUsersRepository, UsersRepository>();
 builder.Services.AddTransient<IPasswordsService, PasswordsService>();
 builder.Services.AddControllers();
-
+builder.Services.AddDbContext<EstyWebApiContext>(option=>option.UseSqlServer("Server=srv2\\PUPILS;Database=Esty_web_api;Trusted_Connection=True;TrustServerCertificate=True"));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

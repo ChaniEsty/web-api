@@ -63,6 +63,8 @@ const signIn = async () => {
         alert("loged in");
         document.location = "/UserDetails.html";
     }
+    else
+        alert("not found");
 }
 
 
@@ -80,9 +82,9 @@ const update = async () => {
     let password = document.getElementById("password").value;
     let firstName = document.getElementById("firstName").value;
     let lastName = document.getElementById("lastName").value;
-    let id = await JSON.parse(sessionStorage.getItem('user')).userId
-    let userId=id
-    let user = JSON.stringify({ userId,email, password, firstName, lastName})
+    let id = await JSON.parse(sessionStorage.getItem('user')).id
+    let Id=id
+    let user = JSON.stringify({ Id,email, password, firstName, lastName})
     
 
     const response = await fetch(`api/users/${id}`,
