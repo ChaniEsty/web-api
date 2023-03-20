@@ -56,7 +56,6 @@ const signIn = async () => {
             headers: { 'Content-Type': 'application/json' },
             body: User
         })
-    //alert("just checking")
     if (res.ok) {
         const user = await res.json();
         sessionStorage.setItem('user', JSON.stringify(user));
@@ -72,6 +71,7 @@ const load = async () => {
 
     const user = await JSON.parse(sessionStorage.getItem('user'));
     document.getElementById('email').setAttribute('value', user.email);
+   
     document.getElementById('password').setAttribute('value', user.password);
     document.getElementById('firstName').setAttribute('value', user.firstName);
     document.getElementById('lastName').setAttribute('value', user.lastName);
