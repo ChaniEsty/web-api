@@ -24,15 +24,15 @@ public class ProductsController : ControllerBase
         return products == null ? NoContent() : Ok(products);
 
     }
-    // GET api/<CategoriesController>/5
-    [HttpGet("{id}")]
-    public async Task<ActionResult<Product>> Get(int id)
-    {
-        Product product = await _productService.GetProductById(id);
-        return product == null ? NoContent() : Ok(product);
-    }
-    // POST api/<CategoriesController>
-    [HttpPost]
+        // GET api/<CategoriesController>/5
+        [HttpGet("{id}")]
+        public async Task<ActionResult<Product>> Get(int id)
+        {
+            Product product = await _productService.GetProductById(id);
+            return product == null ? NoContent() : Ok(product);
+        }
+        // POST api/<CategoriesController>
+        [HttpPost]
     public async Task<ActionResult<Product>> Post([FromBody] Product newProduct)
     {
         Product product = await _productService.CreateProduct(newProduct);

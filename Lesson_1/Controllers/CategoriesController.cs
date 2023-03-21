@@ -6,7 +6,7 @@ using Services;
 
 namespace Lesson1_login.Controllers
 {
-    [Route("api/[controller]")]
+[Route("api/[controller]")]
 [ApiController]
 public class CategoriesController : ControllerBase
 {

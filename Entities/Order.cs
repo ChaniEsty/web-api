@@ -13,6 +13,6 @@ public partial class Order
     public int OrderSum { get; set; }
     [JsonIgnore]
     public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
-    //[JsonIgnore]
+    
     public virtual User User { get; set; } = null!;
 }
