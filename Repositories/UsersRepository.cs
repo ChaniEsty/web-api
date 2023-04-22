@@ -1,94 +1,53 @@
 ﻿using Entities;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text.Json;
 
 namespace Repositories
 {
-    public class UsersRepository
+    public class UsersRepository : IUsersRepository
     {
+        EstyWebApiContext estyWebApiContext;
+        static private string path = "M:\\web_API\\web-api\\Entities\\Db.txt";
 
-        static private string path = "D:\\Web-Api\\Lesson_2\\Entities\\Db.txt";
+        public UsersRepository(EstyWebApiContext estyWebApiContext)
+        {
+            this.estyWebApiContext = estyWebApiContext;
+        }
 
-        public User  GetUserById(int id)
-            {
-            using (StreamReader reader = System.IO.File.OpenText(path))
-            {
-                string? currentUserInFile;
-                while ((currentUserInFile = reader.ReadLine()) != null)
-                {
-                    User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                    if (user.UserId == id)
-                        return user;
-                }
-            }
-            return null;
-
-               
-            }
-
-
-            public User CreataeUser( User user)
-            {
-
-                int numberOfUsers = System.IO.File.ReadLines(path).Count();
-                user.UserId = numberOfUsers + 1;
-                string userJson = JsonSerializer.Serialize(user);
-                System.IO.File.AppendAllText(path, userJson + Environment.NewLine);
-
-            //return nameof(GetUserById,user.UserId,user);
+        public async Task<User> GetUserById(int id)
+        {
+            User? user=await estyWebApiContext.Users.FindAsync(id);
             return user;
 
-            }
-           
-            public User  SignIN(User data)
-            {
-
-                using (StreamReader reader = System.IO.File.OpenText(path))
-                {
-                    string? currentUserInFile;
-                    while ((currentUserInFile = reader.ReadLine()) != null)
-                    {
-                        User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                        if (user.Email == data.Email && user.Password == data.Password)
-                            return user;
-                        //return user;
-                    }
-                }
-
-                return null;
-
-
-            }
-            //  PUT api/<LoginController>
-
-           
-            public void UpdateUser(int id, User userToUpdate)
-            {
-                string textToReplace = string.Empty;
-
-                using (StreamReader reader = System.IO.File.OpenText(path))
-                {
-                    string currentUserInFile;
-                    while ((currentUserInFile = reader.ReadLine()) != null)
-                    {
-
-                        User user = JsonSerializer.Deserialize<User>(currentUserInFile);
-                        if (user.UserId == id)
-                            textToReplace = currentUserInFile;
-                    }
-                }
-
-                if (textToReplace != string.Empty)
-                {
-                    string text = System.IO.File.ReadAllText(path);
-                    text = text.Replace(textToReplace, JsonSerializer.Serialize(userToUpdate));
-                    System.IO.File.WriteAllText(path, text);
-                }
-
-
-            }
-
-          
 
         }
+
+
+        public async Task<User> CreataeUser(User user)
+        {
+            await estyWebApiContext.AddAsync(user);
+            await estyWebApiContext.SaveChangesAsync();
+            return user;
+
+        }
+
+        public async Task<User> SignIN(User data)
+        {
+            List<User> user=await estyWebApiContext.Users.Where(user => user.Password == data.Password && user.Email == data.Email).ToListAsync();
+            if (user.Count == 0)
+                return null;
+            return user[0];
+        }
+        //  PUT api/<LoginController>
+
+
+        public async Task UpdateUser(int id, User userToUpdate)
+        {
+            estyWebApiContext.Update(userToUpdate);
+            await estyWebApiContext.SaveChangesAsync();
+
+        }
+    }
 }

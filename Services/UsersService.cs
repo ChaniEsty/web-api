@@ -9,37 +9,43 @@ using System.Threading.Tasks;
 
 namespace Services
 {
-    public class UsersService
+    public class UsersService : IUsersService
     {
 
-        private UsersRepository usersRepository = new UsersRepository();
+        private IUsersRepository usersRepository;
         static private string path = "Entities\\Db.txt";
 
-        public User GetUserById(int id)
+        public UsersService(IUsersRepository usersRepository)
         {
-
-            return usersRepository.GetUserById(id);
+            this.usersRepository = usersRepository;
         }
 
-
-        public User CreataeUser(User user)
+        public async Task<User> GetUserById(int id)
         {
+            return  await usersRepository.GetUserById(id);
+
            
-           return usersRepository.CreataeUser(user);
+        }
+
+
+        public async Task<User> CreataeUser(User user)
+        {
+
+            return await usersRepository.CreataeUser(user);
 
 
         }
 
-        public User SignIN(User data)
+        public async Task<User> SignIN(User data)
         {
-            return usersRepository.SignIN(data);
+            return await usersRepository.SignIN(data);
 
         }
 
-        public void UpdateUser(int id, User userToUpdate)
+        public async Task UpdateUser(int id, User userToUpdate)
         {
 
-            usersRepository.UpdateUser(id,userToUpdate);
+            await usersRepository.UpdateUser(id, userToUpdate);
         }
 
 
