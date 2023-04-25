@@ -3,7 +3,7 @@ const loadData = async () => {
     await getCategories();
     await getProducts();
 }
-document.addEventListener("load", loadData)
+window.addEventListener("load", loadData)
 const getCategories = async () => {
     const res = await fetch("https://localhost:44351/api/categories");
     if (res.ok) {
