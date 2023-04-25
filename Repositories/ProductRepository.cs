@@ -28,7 +28,7 @@ namespace Repositories
         }
         public async Task<Product> CreateProduct(Product product)
         {
-            await _estyWebApiContext.AddAsync(product);
+            await _estyWebApiContext.Products.AddAsync(product);
             await _estyWebApiContext.SaveChangesAsync();
             return product;
 

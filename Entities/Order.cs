@@ -11,7 +11,7 @@ public partial class Order
     public int UserId { get; set; }
 
     public int OrderSum { get; set; }
-    [JsonIgnore]
+
     public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
     
     public virtual User User { get; set; } = null!;

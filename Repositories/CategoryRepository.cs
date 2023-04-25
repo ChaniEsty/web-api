@@ -28,7 +28,7 @@ namespace Repositories
         }
         public async Task<Category> CreateCategory(Category category)
         {
-            await _estyWebApiContext.AddAsync(category);
+            await _estyWebApiContext.Categories.AddAsync(category);
             await _estyWebApiContext.SaveChangesAsync();
             return category;
 
