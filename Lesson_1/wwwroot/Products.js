@@ -14,7 +14,11 @@ const getCategories = async () => {
 }
 const buildCategory = async (categories) => {
     categories.map(category => {
-
+        let tmp = document.querySelector(template);
+        let clone = tmp.content.cloneNode(true);
+        clone.getElementsByTagName("input")
+        document.body.appendChild(clone);
+        document.body.getElementsByTagName
     })
 }
 const getProducts = async () => {
