@@ -1,8 +1,9 @@
-﻿//document.addEventListener("load", loadData)
+﻿
 const loadData = async () => {
     await getCategories();
     await getProducts();
 }
+window.addEventListener("load", loadData)
 const getCategories = async () => {
     const res = await fetch("https://localhost:44351/api/categories");
     if (res.ok) {
