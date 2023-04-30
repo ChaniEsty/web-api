@@ -15,11 +15,13 @@ const getCategories = async () => {
 }
 const buildCategory = async (categories) => {
     categories.map(category => {
-        let tmp = document.querySelector(template);
+        let tmp = document.querySelector("#temp-category");
         let clone = tmp.content.cloneNode(true);
-        clone.getElementsByTagName("input")
-        document.body.appendChild(clone);
-        document.body.getElementsByTagName
+        document.getElementById("categoryList").appendChild(clone);
+        let span = clone.querySelector(".OptionName");
+        console.log(category.name)
+        //let input = document.body.getElementsByTagName("input")[0];
+        span.textContent = category.name;
     })
 }
 const getProducts = async () => {
@@ -34,3 +36,4 @@ const buildProduct = async (products) => {
 
     })
 }
+//aaaa
