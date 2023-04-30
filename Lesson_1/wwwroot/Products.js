@@ -14,14 +14,13 @@ const getCategories = async () => {
 
 }
 const buildCategory = async (categories) => {
-    categories.map(category => {
+    categories.forEach(category => {
         let tmp = document.querySelector("#temp-category");
         let clone = tmp.content.cloneNode(true);
+        clone.querySelector(".OptionName").innerText = category.name;
         document.getElementById("categoryList").appendChild(clone);
-        let span = clone.querySelector(".OptionName");
         console.log(category.name)
-        //let input = document.body.getElementsByTagName("input")[0];
-        span.textContent = category.name;
+       
     })
 }
 const getProducts = async () => {
@@ -29,11 +28,21 @@ const getProducts = async () => {
     if (res.ok) {
         const products =await res.json();
         console.log(products);
+        buildProduct(products)
     }
 }
 const buildProduct = async (products) => {
-    products.map(product => {
-
+    products.forEach(product => {
+        let tmp = document.querySelector("#temp-card");
+        let clone = tmp.content.cloneNode(true);
+        let div_img = clone.querySelector(".img-w");
+        let desc = clone.querySelector(".description");
+        let price = clone.querySelector(".price");
+        document.body.appendChild(clone);
+        console.log(product.name)
+        price.innerText = product.price;
+        desc.innerText = product.description;
+        //img.innerText=
     })
 }
 
