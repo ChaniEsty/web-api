@@ -1,7 +1,7 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <script src="Products.js"></script>
+    <!--<script src="Products.js"></script>-->
  
     <link href="Products.css" rel="stylesheet" />
     <meta charset="utf-8" />
@@ -19,7 +19,7 @@
     </template>
     <template id="temp-category">
         <div class="cb checkbox">
-            <input type="checkbox" class="opt" id="" value="">
+            <input type="checkbox"  onchange="filter()" checked="checked" class="opt" id="" value="">
             <label for="">
                 <span class="OptionName"></span>
                 <span textContext class="Count"></span>
@@ -107,7 +107,8 @@
             <a href="#">&laquo;</a>
             <div id="pages"></div>
             <a href="#">&raquo;</a>
-        </div>
+        </div><script src="Products.js"></script>
     </body>
+    
 </html>
 

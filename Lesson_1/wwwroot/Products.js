@@ -15,8 +15,8 @@ const getCategories = async () => {
 }
 const buildCategory = async (categories) => {
     categories.forEach(category => {
-        let tmp = document.querySelector("#temp-category");
-        let clone = tmp.content.cloneNode(true);
+        const tmp = document.querySelector("#temp-category");
+        const clone = tmp.content.cloneNode(true);
         clone.querySelector(".OptionName").innerText = category.name;
         document.getElementById("categoryList").appendChild(clone);
         console.log(category.name)
@@ -33,16 +33,20 @@ const getProducts = async () => {
 }
 const buildProduct = async (products) => {
     products.forEach(product => {
-        let tmp = document.querySelector("#temp-card");
-        let clone = tmp.content.cloneNode(true);
-        let div_img = clone.querySelector(".img-w");
+        const tmp = document.querySelector("#temp-card");
+        const clone = tmp.content.cloneNode(true);
+        let div_img = clone.querySelector(".img-w img").src = `img/${product.image}`;
+        const name = clone.querySelector("h1").innerText=product.name;
         let desc = clone.querySelector(".description");
         let price = clone.querySelector(".price");
         document.body.appendChild(clone);
         console.log(product.name)
-        price.innerText = product.price;
+        price.innerText = `${product.price}₪`;
         desc.innerText = product.description;
-        //img.innerText=
+       //div_img.src = `img/${product.img}`;
     })
+    const filter = () => {
+        console.log("filter");
+    }
 }
 
