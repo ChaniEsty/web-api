@@ -5,7 +5,7 @@ const loadData = async () => {
 }
 window.addEventListener("load", loadData)
 const getCategories = async () => {
-    const res = await fetch("https://localhost:44351/api/categories");
+    const res = await fetch("api/categories");
     if (res.ok) {
         const categories =await res.json();
         buildCategory(categories);
@@ -14,14 +14,14 @@ const getCategories = async () => {
 
 }
 const buildCategory = async (categories) => {
-    categories.map(category => {
-        let tmp = document.querySelector("#temp-category");
-        let clone = tmp.content.cloneNode(true);
+    categories.forEach(category => {
+        const tmp = document.querySelector("#temp-category");
+        const clone = tmp.content.cloneNode(true);
+        clone.querySelector(".OptionName").innerText = category.name;
+        clone.querySelector(".opt").id = category.id;
         document.getElementById("categoryList").appendChild(clone);
-        let span = clone.querySelector(".OptionName");
         console.log(category.name)
-        //let input = document.body.getElementsByTagName("input")[0];
-        span.textContent = category.name;
+       
     })
 }
 const getProducts = async () => {
@@ -29,11 +29,51 @@ const getProducts = async () => {
     if (res.ok) {
         const products =await res.json();
         console.log(products);
+        buildProduct(products)
     }
 }
+const removeProducts = () => {
+    productsToRemove = document.querySelectorAll(".card");
+    productsToRemove.forEach(product => document.querySelector("#PoductList").removeChild(product));
+}
 const buildProduct = async (products) => {
-    products.map(product => {
-
+    removeProducts();
+    products.forEach(product => {
+        const tmp = document.querySelector("#temp-card");
+        const clone = tmp.content.cloneNode(true);
+        let div_img = clone.querySelector(".img-w img").src = `img/${product.image}`;
+        const name = clone.querySelector("h1").innerText=product.name;
+        let desc = clone.querySelector(".description");
+        let price = clone.querySelector(".price");
+        document.querySelector("#PoductList").appendChild(clone);
+        price.innerText = `${product.price}₪`;
+        desc.innerText = product.description;
+    
     })
+    
+}
+async function filterProducts() {
+    const categories = [];
+    const productName = document.getElementById("nameSearch").value;
+    const minPrice = parseInt(document.querySelector("#minPrice").value);
+    const maxPrice = parseInt(document.querySelector("#maxPrice").value);
+    console.log("nnnnnnnnnnnnnnnnnn",productName, minPrice, maxPrice);
+    const checkbox = document.querySelectorAll(".checkBox");
+    checkbox.forEach(c => { if (c.querySelector("input").checked) categories.push(parseInt(c.querySelector("input").id)); })
+    console.log(categories);
+    let url = "api/Products?";
+    categories.forEach(category => { url += `&categories=${category}` });
+    if (productName)
+        url += `&productName = ${ productName }`
+    if (minPrice)
+        url += `&minPrice = ${minPrice}`
+    if (maxPrice)
+        url += `&maxPrice = ${maxPrice}`
+    console.log(url + "888888888888888888")
+    const res =await fetch(url);
+    if (res.ok) {
+        const products = await res.json();
+        buildProduct(products);
+    }
 }
 
