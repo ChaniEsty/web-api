@@ -18,9 +18,9 @@ public class ProductsController : ControllerBase
     }
     // GET: api/<ProductsController>
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> Get()
+    public async Task<ActionResult<List<Product>>> Get([FromQuery]int?[] categories, [FromQuery] string? productName, [FromQuery] int? minPrice, [FromQuery] int? maxPrice)
     {
-        List<Product> products = await _productService.GetProducts();
+        List<Product> products = await _productService.GetProducts( categories,productName,minPrice, maxPrice);
         return products == null ? NoContent() : Ok(products);
 
     }

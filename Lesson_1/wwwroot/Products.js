@@ -5,7 +5,7 @@ const loadData = async () => {
 }
 window.addEventListener("load", loadData)
 const getCategories = async () => {
-    const res = await fetch("https://localhost:44351/api/categories");
+    const res = await fetch("api/categories");
     if (res.ok) {
         const categories =await res.json();
         buildCategory(categories);
@@ -18,6 +18,7 @@ const buildCategory = async (categories) => {
         const tmp = document.querySelector("#temp-category");
         const clone = tmp.content.cloneNode(true);
         clone.querySelector(".OptionName").innerText = category.name;
+        clone.querySelector(".opt").id = category.id;
         document.getElementById("categoryList").appendChild(clone);
         console.log(category.name)
        
@@ -31,7 +32,12 @@ const getProducts = async () => {
         buildProduct(products)
     }
 }
+const removeProducts = () => {
+    productsToRemove = document.querySelectorAll(".card");
+    productsToRemove.forEach(product => document.querySelector("#PoductList").removeChild(product));
+}
 const buildProduct = async (products) => {
+    removeProducts();
     products.forEach(product => {
         const tmp = document.querySelector("#temp-card");
         const clone = tmp.content.cloneNode(true);
@@ -39,14 +45,35 @@ const buildProduct = async (products) => {
         const name = clone.querySelector("h1").innerText=product.name;
         let desc = clone.querySelector(".description");
         let price = clone.querySelector(".price");
-        document.body.appendChild(clone);
-        console.log(product.name)
+        document.querySelector("#PoductList").appendChild(clone);
         price.innerText = `${product.price}₪`;
         desc.innerText = product.description;
-       //div_img.src = `img/${product.img}`;
+    
     })
-    const filter = () => {
-        console.log("filter");
+    
+}
+async function filterProducts() {
+    const categories = [];
+    const productName = document.getElementById("nameSearch").value;
+    const minPrice = parseInt(document.querySelector("#minPrice").value);
+    const maxPrice = parseInt(document.querySelector("#maxPrice").value);
+    console.log("nnnnnnnnnnnnnnnnnn",productName, minPrice, maxPrice);
+    const checkbox = document.querySelectorAll(".checkBox");
+    checkbox.forEach(c => { if (c.querySelector("input").checked) categories.push(parseInt(c.querySelector("input").id)); })
+    console.log(categories);
+    let url = "api/Products?";
+    categories.forEach(category => { url += `&categories=${category}` });
+    if (productName)
+        url += `&productName = ${ productName }`
+    if (minPrice)
+        url += `&minPrice = ${minPrice}`
+    if (maxPrice)
+        url += `&maxPrice = ${maxPrice}`
+    console.log(url + "888888888888888888")
+    const res =await fetch(url);
+    if (res.ok) {
+        const products = await res.json();
+        buildProduct(products);
     }
 }
 
