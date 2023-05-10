@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -11,32 +13,37 @@ namespace Lesson1_login.Controllers
 public class ProductsController : ControllerBase
 {
     IProductService _productService;
-
-    public ProductsController(IProductService productService)
+    IMapper _mapper;
+    public ProductsController(IProductService productService, IMapper mapper)
     {
         _productService = productService;
+        _mapper = mapper;
     }
     // GET: api/<ProductsController>
     [HttpGet]
-    public async Task<ActionResult<List<Product>>> Get([FromQuery]int?[] categories, [FromQuery] string? productName, [FromQuery] int? minPrice, [FromQuery] int? maxPrice)
+    public async Task<ActionResult<List<ProductDto>>> Get([FromQuery]int?[] categories, [FromQuery] string? productName, [FromQuery] int? minPrice, [FromQuery] int? maxPrice)
     {
-        List<Product> products = await _productService.GetProducts(categories,  productName, minPrice,maxPrice);
-        return products == null ? NoContent() : Ok(products);
+            List<Product> products = await _productService.GetProducts(categories,  productName, minPrice,maxPrice);
+            List<ProductDto> productsDto = _mapper.Map<List<Product>, List<ProductDto>>(products);
+            return products == null ? NoContent() : Ok(productsDto);
 
     }
         // GET api/<CategoriesController>/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> Get(int id)
-        {
-            Product product = await _productService.GetProductById(id);
-            return product == null ? NoContent() : Ok(product);
-        }
-        // POST api/<CategoriesController>
-        [HttpPost]
-    public async Task<ActionResult<Product>> Post([FromBody] Product newProduct)
+    [HttpGet("{id}")]
+    public async Task<ActionResult<ProductDto>> Get(int id)
     {
+        Product product = await _productService.GetProductById(id);
+        ProductDto productDto = _mapper.Map<Product,ProductDto>(product);
+        return product == null ? NoContent() : Ok(productDto);
+    }
+    // POST api/<CategoriesController>
+    [HttpPost]
+    public async Task<ActionResult<ProductDto>> Post([FromBody] ProductDto newProductDto)
+    {
+        Product newProduct = _mapper.Map<ProductDto, Product>(newProductDto);
         Product product = await _productService.CreateProduct(newProduct);
-        return CreatedAtAction(nameof(Get), new { id = product.Id }, product);
+        ProductDto productDto = _mapper.Map<Product, ProductDto>(product);
+        return CreatedAtAction(nameof(Get), new { id = product.Id }, productDto);
     }
         
 }
