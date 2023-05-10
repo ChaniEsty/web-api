@@ -18,7 +18,11 @@ namespace Repositories
         }
         public async Task<List<Product>> GetProducts()
         {
-            return await _estyWebApiContext.Products.Include(product => product.Category).ToListAsync();
+            return await _estyWebApiContext.Products.Where(product => 
+                                                                      (categories.Length==0  ? true : categories.Contains(product.CategoryId))
+                                                                   && (productName == null ? true :product.Name.Contains(productName))
+                                                                   && (minPrice == null ? true : product.Price >= minPrice)
+                                                                   && (maxPrice == null ? true : product.Price <= maxPrice )). Include(product => product.Category).ToListAsync();
 
         }
         public async Task<Product> GetProductById(int id)
