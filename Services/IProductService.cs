@@ -6,6 +6,6 @@ namespace Services
     {
         Task<Product> CreateProduct(Product product);
         Task<Product> GetProductById(int id);
-        Task<List<Product>> GetProducts(int?[] categories, string? productName, int? minPrice, int? maxPrice);
+        Task<List<Product>> GetProducts(int? []categories,string? productName, int? minPrice, int? maxPrice);
     }
 }
