@@ -26,9 +26,9 @@ namespace Services
             return await _productRepository.CreateProduct(product);
 
         }
-        public async Task<List<Product>> GetProducts()
+        public async Task<List<Product>> GetProducts(int?[] categories, string? productName, int? minPrice, int? maxPrice)
         {
-            return await _productRepository.GetProducts();
+            return await _productRepository.GetProducts( categories,productName,  minPrice,maxPrice);
 
         }
     }

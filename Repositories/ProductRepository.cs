@@ -16,7 +16,7 @@ namespace Repositories
         {
             _estyWebApiContext = estyWebApiContext;
         }
-        public async Task<List<Product>> GetProducts()
+        public async Task<List<Product>> GetProducts(int?[] categories, string? productName, int? minPrice, int? maxPrice)
         {
             return await _estyWebApiContext.Products.Where(product => 
                                                                       (categories.Length==0  ? true : categories.Contains(product.CategoryId))
