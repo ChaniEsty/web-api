@@ -5,7 +5,7 @@ const loadData = async () => {
 }
 window.addEventListener("load", loadData)
 const getCategories = async () => {
-    const res = await fetch("api/categories");
+    const res = await fetch("https://localhost:44351/api/categories");
     if (res.ok) {
         const categories =await res.json();
         buildCategory(categories);
@@ -14,14 +14,14 @@ const getCategories = async () => {
 
 }
 const buildCategory = async (categories) => {
-    categories.forEach(category => {
-        const tmp = document.querySelector("#temp-category");
-        const clone = tmp.content.cloneNode(true);
-        clone.querySelector(".OptionName").innerText = category.name;
-        clone.querySelector(".opt").id = category.id;
+    categories.map(category => {
+        let tmp = document.querySelector("#temp-category");
+        let clone = tmp.content.cloneNode(true);
         document.getElementById("categoryList").appendChild(clone);
+        let span = clone.querySelector(".OptionName");
         console.log(category.name)
-       
+        //let input = document.body.getElementsByTagName("input")[0];
+        span.textContent = category.name;
     })
 }
 const getProducts = async () => {
@@ -29,27 +29,13 @@ const getProducts = async () => {
     if (res.ok) {
         const products =await res.json();
         console.log(products);
-        buildProduct(products)
     }
 }
-const removeProducts = () => {
-    productsToRemove = document.querySelectorAll(".card");
-    productsToRemove.forEach(product => document.querySelector("#PoductList").removeChild(product));
-}
 const buildProduct = async (products) => {
-    removeProducts();
-    products.forEach(product => {
-        const tmp = document.querySelector("#temp-card");
-        const clone = tmp.content.cloneNode(true);
-        let div_img = clone.querySelector(".img-w img").src = `img/${product.image}`;
-        const name = clone.querySelector("h1").innerText=product.name;
-        let desc = clone.querySelector(".description");
-        let price = clone.querySelector(".price");
-        document.querySelector("#PoductList").appendChild(clone);
-        price.innerText = `${product.price}₪`;
-        desc.innerText = product.description;
-    
+    products.map(product => {
+
     })
+
     
 }
 async function filterProducts() {
