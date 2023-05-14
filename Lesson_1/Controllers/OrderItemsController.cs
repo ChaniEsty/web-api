@@ -1,4 +1,6 @@
-﻿using Entities;
+﻿using AutoMapper;
+using DTO;
+using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
 
@@ -11,34 +13,39 @@ namespace Lesson1_login.Controllers
 public class OrderItemsController : ControllerBase
 {
         IOrderItemService _orderItemService;
-
-        public OrderItemsController(IOrderItemService orderItemService)
+        IMapper _mapper;
+        public OrderItemsController(IOrderItemService orderItemService, IMapper mapper)
         {
             _orderItemService = orderItemService;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<OrderItem>>> Get()
+        public async Task<ActionResult<List<OrderItemDto>>> Get()
         {
             List<OrderItem> orderItems = await _orderItemService.GetOrderItems();
-            return orderItems == null ? NoContent() : Ok(orderItems);
+            List<OrderItemDto> orderItemDtos = _mapper.Map<List<OrderItem>, List<OrderItemDto>>(orderItems);
+            return orderItems == null ? NoContent() : Ok(orderItemDtos);
 
         }
 
         // GET api/<CategoriesController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<OrderItem>> Get(int orderId)
+        public async Task<ActionResult<OrderItemDto>> Get(int orderId)
         {
             OrderItem orderItem = await _orderItemService.GetOrderItemByOrderId(orderId);
-            return orderItem == null ? NoContent() : Ok(orderItem);
+            OrderItemDto orderItemDto = _mapper.Map<OrderItem, OrderItemDto>(orderItem);
+            return orderItem == null ? NoContent() : Ok(orderItemDto);
         }
 
         // POST api/<CategoriesController>
         [HttpPost]
-        public async Task<ActionResult<OrderItem>> Post([FromBody] OrderItem newOrderItem)
+        public async Task<ActionResult<OrderItemDto>> Post([FromBody] OrderItemDto newOrderItemDto)
         {
+            OrderItem newOrderItem = _mapper.Map<OrderItemDto, OrderItem>(newOrderItemDto);
             OrderItem orderItem = await _orderItemService.CreateOrderItem(newOrderItem);
-            return CreatedAtAction(nameof(Get), new { id = orderItem.Id }, orderItem);
+            OrderItemDto orderItemDto = _mapper.Map<OrderItem, OrderItemDto>(orderItem);
+            return CreatedAtAction(nameof(Get), new { id = orderItemDto.Id }, orderItemDto);
         }
     }
 }

@@ -45,12 +45,18 @@ const buildProduct = async (products) => {
         const name = clone.querySelector("h1").innerText = product.name;
         let desc = clone.querySelector(".description");
         let price = clone.querySelector(".price");
+        clone.querySelector('button').addEventListener('click', () => { addToCart(product) });
         document.querySelector("#PoductList").appendChild(clone);
         price.innerText = `${product.price}₪`;
         desc.innerText = product.description;
 
     })
 
+}
+const addToCart = (product) => {
+    basket = JSON.parse(sessionStorage.getItem('basket') || '[]');
+    basket.push(product);
+    sessionStorage.setItem("basket", JSON.stringify(basket));
 }
 
 async function filterProducts() {

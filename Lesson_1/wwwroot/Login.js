@@ -9,12 +9,6 @@
     const score = await res.json();
     const progress = document.getElementById("progress");
     progress.value=score;
-    //let progress = document.createElement("progress");
-    //progress.ariaValueMax = 4;
-    //progress.ariaValueMin = 0;
-    //progress.ariaValueNow = 0;
-    //divSignUp.appendChild(progress);
-    //alert(score);
 }
 const signUp = async () => {
     let email = document.getElementById("email").value;
@@ -22,7 +16,6 @@ const signUp = async () => {
     let firstName = document.getElementById("firstName").value;
     let lastName = document.getElementById("lastName").value;
    let user = JSON.stringify({email, password,  firstName,  lastName })
-   // let user = { email: email, password: password, firstName: firstName, lastName: lastName }
     const res = await fetch("api/Users",
         {
             method: 'POST',
@@ -71,7 +64,6 @@ const load = async () => {
 
     const user = await JSON.parse(sessionStorage.getItem('user'));
     document.getElementById('email').setAttribute('value', user.email);
-   
     document.getElementById('password').setAttribute('value', user.password);
     document.getElementById('firstName').setAttribute('value', user.firstName);
     document.getElementById('lastName').setAttribute('value', user.lastName);
@@ -98,6 +90,7 @@ const update = async () => {
 
 }
 const shop = () => {
+    document.location = "/Products.html";
 
 }
 

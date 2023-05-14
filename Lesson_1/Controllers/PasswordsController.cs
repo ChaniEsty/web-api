@@ -9,49 +9,22 @@ namespace Lesson1_login.Controllers
 [ApiController]
 public class PasswordsController : ControllerBase
 {
-    IPasswordsService passwordsService ;
+    IPasswordsService _passwordsService ;
 
-        public PasswordsController(IPasswordsService passwordsService)
-        {
-            this.passwordsService = passwordsService;
-        }
-
-        // GET: api/<PasswordsController>
-        [HttpGet]
-    public IEnumerable<string> Get()
+    public PasswordsController(IPasswordsService passwordsService)
     {
-        return new string[] { "value1", "value2" };
+        _passwordsService = passwordsService;
     }
+
     [HttpPost]
     public int GetPasswordStrength([FromBody] string password)
     {
-            return passwordsService.GetPasswordStrength(password);
+            return _passwordsService.GetPasswordStrength(password);
 
-        }
-
-    // GET api/<PasswordsController>/5
-    [HttpGet("{id}")]
-    public string Get(int id)
-    {
-        return "value";
     }
 
-    // POST api/<PasswordsController>
-    //[HttpPost]
-    //public void Post([FromBody] string value)
-    //{
-    //}
+   
 
-    // PUT api/<PasswordsController>/5
-    [HttpPut("{id}")]
-    public void Put(int id, [FromBody] string value)
-    {
-    }
-
-    // DELETE api/<PasswordsController>/5
-    [HttpDelete("{id}")]
-    public void Delete(int id)
-    {
-    }
+   
 }
 }

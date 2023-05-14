@@ -1,4 +1,6 @@
 ﻿
+using AutoMapper;
+using DTO;
 using Entities;
 using Microsoft.AspNetCore.Mvc;
 using Services;
@@ -14,76 +16,50 @@ namespace Lesson1_login.Controllers
     public class UsersController : ControllerBase
     {
 
-        private IUsersService usersService;
-
-        public UsersController(IUsersService usersService)
+        private IUsersService _usersService;
+        private IMapper _mapper;
+        public UsersController(IUsersService usersService, IMapper mapper)
         {
-            this.usersService = usersService;
+            _usersService = usersService;
+            _mapper = mapper;
         }
-
-        // GET: api/<LoginController>
-        //[HttpGet]
-        //public IEnumerable<string> Get()
-        //{
-        //    return usersService.GetUserById(id);
-        //}
 
         // GET api/<LoginController>/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<User>> Get(int id)
+        public async Task<ActionResult<UserDto>> Get(int id)
         {
-            User user = await usersService.GetUserById(id);
-            return user == null ? NotFound() :user;
+            User user = await _usersService.GetUserById(id);
+            UserDto userDto = _mapper.Map<User, UserDto>(user);
+            return user == null ? NotFound() :userDto;
                    
         }
-        //[HttpGet]
-        //public int GetPasswordStrength([FromQuery] string password)
-        //{
-        //    var result = Zxcvbn.Core.EvaluatePassword(password);
-        //    return result.Score;
-
-        //}
-
-
         // POST api/<LoginController>
         [HttpPost]
-        public async Task<ActionResult<User> >Post([FromBody] User user)
+        public async Task<ActionResult<UserDto>>Post([FromBody] User user)
         {
-
-            return await usersService.CreataeUser(user); ;
-
-
+             User userCreated=await _usersService.CreataeUser(user);
+            UserDto userDto = _mapper.Map<User, UserDto>(userCreated);
+            return userDto;
         }
         //POST api/<LoginController>
         [HttpPost]
         [Route("signIn")]
-       // public ActionResult<User> Post1([FromBody] string password,string email)
-       public async Task<ActionResult<User>> SignIn([FromBody] User data)
-        {
-            User user =await usersService.SignIN(data);
-            if(user == null) return NotFound();
+       public async Task<ActionResult<UserDto>> SignIn([FromBody] LoginDto logInUser)
+       {
+            User user = _mapper.Map<LoginDto, User>(logInUser);
+            User createdUser =await _usersService.SignIN(user);
+            UserDto userDto= _mapper.Map<User, UserDto>(createdUser);
+            if(createdUser == null) return NotFound();
             else
-                return Ok(user);
-            //return user == null ? NotFound() : Ok(user);
+                return Ok(userDto);
 
-
-        }
+       }
       //  PUT api/<LoginController>
        
         [HttpPut("{id}")]
         public async Task Put(int id, [FromBody] User userToUpdate)
         {
-            await usersService.UpdateUser(id, userToUpdate);
-           
-
-
+            await _usersService.UpdateUser(id, userToUpdate);
         }
-
-        // DELETE api/<LoginController>/5
-        //[HttpDelete("{id}")]
-        //public async Task Delete(int id)
-        //{
-        //    //return nameof(GetUserById, user.Id, user)
-        //}
     }
 }

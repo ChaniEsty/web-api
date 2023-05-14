@@ -4,6 +4,8 @@ using Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
+//public static IWebHostBuilder CreateWebHostBuilder()
+
 // Add services to the container.
 builder.Services.AddTransient<IUsersService, UsersService>();
 builder.Services.AddTransient<IUsersRepository, UsersRepository>();

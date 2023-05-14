@@ -13,7 +13,10 @@ public class Mapper : Profile
 														opt => opt.MapFrom(product => product.Category.Name)).
                                                         ForMember(productDto => productDto.CategoryId,
                                                         opt => opt.MapFrom(product => product.CategoryId)).ReverseMap();
-
+		CreateMap<LoginDto, User>();
+		CreateMap<User, UserDto>();
+		CreateMap<Order, OrderDto>().ReverseMap();
+		CreateMap<OrderItem, OrderItemDto>().ReverseMap();
 
                                                         
 

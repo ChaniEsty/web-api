@@ -1,20 +1,20 @@
 ﻿function loadShoppingBag()
 { 
-    const orderItems = JSON.parse(sessionStorage.getItem("bag"));
+    const orderItems = JSON.parse(sessionStorage.getItem("basket"));
     console.log("ssss", orderItems)
-    drowOrderItems(orderItems)
+    buildOrderItems(orderItems);
 }
-function drowOrderItems(orderItems) {
-    console.log("ss", orderItems)
-    orderItems.forEach(orderItem => document.querySelector('#items').appendChild(designOrderItems(orderItem)))
-        
-}
-function designOrderItems(orderItem)
-{
-    const template = document.querySelector('#orderItem');
-    const OrderItem = template.content.cloneNode(true);
-   // templateOrderItem.querySelector('#descriptionColumn')
-    return OrderItem
+
+function buildOrderItems(orderItems) {
+    orderItems.forEach(orderItem => {
+        const template = document.querySelector('#orderItem');
+        const OrderItem = template.content.cloneNode(true);
+        const desc = OrderItem.querySelector('.descriptionColumn');
+        console.log(orderItem);
+        desc.querySelector('h3').innerText = orderItem.name;
+        OrderItem.querySelector('.image img').src=`img/${orderItem.image}`
+        document.querySelector('#items').appendChild(OrderItem);
+    });
 
 }
 
