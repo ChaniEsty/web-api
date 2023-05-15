@@ -38,12 +38,13 @@ ul {
     font-family: arial;
     padding: 15px;
     float: left;
-    height: 550px;
+    height: 400px;
     margin: 6px;
 }
 
-.img-w {
-    height: 300px;
+.img {
+    width: 300px;
+    height:150px;
 }
 
 p.description {
@@ -51,7 +52,7 @@ p.description {
 }
 
 .bar::before {
-    content: 'חנות הצעצועים שלי';
+    content: 'quick food';
     color: white;
     /* display: inline-block; */
     position: absolute;

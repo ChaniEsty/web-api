@@ -2,6 +2,13 @@
 const loadData = async () => {
     await getCategories();
     await getProducts();
+    itemCount();
+}
+const itemCount = () => {
+    const basket = JSON.parse(sessionStorage.getItem('basket') || '[]');
+    let count = 0;
+    basket.forEach(p =>count+= parseInt(p.quantity));
+    document.querySelector('#ItemsCountText').innerText = count;
 }
 window.addEventListener("load", loadData)
 const getCategories = async () => {
@@ -36,6 +43,24 @@ const removeProducts = () => {
     productsToRemove = document.querySelectorAll(".card");
     productsToRemove.forEach(product => document.querySelector("#PoductList").removeChild(product));
 }
+const addToCart = (product) => {
+    product.quantity = 1;
+    basket = JSON.parse(sessionStorage.getItem('basket') || '[]');
+    const bagFiltered = basket.filter(p => p.id == product.id);
+    if (bagFiltered.length == 0) {
+        product.quantity = 1;
+        basket.push(product);
+    }
+    else {
+        bagFiltered[0].quantity++;
+    }
+    sessionStorage.setItem("basket", JSON.stringify(basket));
+    addItemCount();
+}
+const addItemCount = () => {
+    const count = parseInt(document.querySelector('#ItemsCountText').innerText);
+    document.querySelector('#ItemsCountText').innerText = count + 1;
+}
 const buildProduct = async (products) => {
     removeProducts();
     products.forEach(product => {
@@ -53,11 +78,7 @@ const buildProduct = async (products) => {
     })
 
 }
-const addToCart = (product) => {
-    basket = JSON.parse(sessionStorage.getItem('basket') || '[]');
-    basket.push(product);
-    sessionStorage.setItem("basket", JSON.stringify(basket));
-}
+
 
 async function filterProducts() {
     const categories = [];
