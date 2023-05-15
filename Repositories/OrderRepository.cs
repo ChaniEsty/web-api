@@ -18,7 +18,6 @@ namespace Repositories
         public async Task<List<Order>> GetOrders()
         {
             return await _estyWebApiContext.Orders.Include(order => order.User).ToListAsync();
-
         }
         public async Task<Order> GetOrderById(int id)
         {
@@ -27,7 +26,7 @@ namespace Repositories
         }
         public async Task<Order> CreateOrder(Order order)
         {
-            await _estyWebApiContext.AddAsync(order);
+            await _estyWebApiContext.Orders.AddAsync(order);
             await _estyWebApiContext.SaveChangesAsync();
             return order;
 

@@ -8,7 +8,6 @@ namespace Services
 {
     public class PasswordsService : IPasswordsService
     {
-
         public int GetPasswordStrength(string password)
         {
             var result = Zxcvbn.Core.EvaluatePassword(password);

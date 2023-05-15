@@ -37,7 +37,6 @@ public class OrdersController : ControllerBase
         OrderDto orderDto = _mapper.Map<Order, OrderDto>(order);
         return order == null ? NoContent() : Ok(orderDto);
     }
-
     // POST api/<CategoriesController>
     [HttpPost]
     public async Task<ActionResult<OrderDto>> Post([FromBody] OrderDto newOrderDto)

@@ -19,17 +19,14 @@ namespace Services
         public async Task<OrderItem> GetOrderItemByOrderId(int orderId)
         {
             return await _orderItemRepository.GetOrderItemByOrderId(orderId);
-
         }
         public async Task<OrderItem> CreateOrderItem(OrderItem orderItem)
         {
             return await _orderItemRepository.CreateOrderItem(orderItem);
-
         }
         public async Task<List<OrderItem>> GetOrderItems()
         {
             return await _orderItemRepository.GetOrderItems();
-
         }
     }
 }

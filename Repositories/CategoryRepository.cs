@@ -19,19 +19,16 @@ namespace Repositories
         public async Task<List<Category>>GetCategories()
         {
             return await _estyWebApiContext.Categories.ToListAsync();
-
         }
         public async Task<Category> GetCategoryById(int id)
         {
             return await _estyWebApiContext.Categories.FindAsync(id);
-
         }
         public async Task<Category> CreateCategory(Category category)
         {
             await _estyWebApiContext.Categories.AddAsync(category);
             await _estyWebApiContext.SaveChangesAsync();
             return category;
-
         }
     }
 }

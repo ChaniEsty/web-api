@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,5 +14,8 @@ namespace DTO
         public int UserId { get; set; }
 
         public int Ordersum { get; set; }
+        
+        public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
+
     }
 }

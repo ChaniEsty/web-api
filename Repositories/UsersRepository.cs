@@ -20,17 +20,13 @@ namespace Repositories
         {
             User? user=await estyWebApiContext.Users.FindAsync(id);
             return user;
-
-
         }
-
-
+        
         public async Task<User> CreataeUser(User user)
         {
             await estyWebApiContext.AddAsync(user);
             await estyWebApiContext.SaveChangesAsync();
             return user;
-
         }
 
         public async Task<User> SignIN(User data)
@@ -41,13 +37,10 @@ namespace Repositories
             return user[0];
         }
         //  PUT api/<LoginController>
-
-
         public async Task UpdateUser(int id, User userToUpdate)
         {
             estyWebApiContext.Update(userToUpdate);
             await estyWebApiContext.SaveChangesAsync();
-
         }
     }
 }

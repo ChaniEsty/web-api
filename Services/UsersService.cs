@@ -26,15 +26,13 @@ namespace Services
 
            
         }
-
-
-        public async Task<User> CreataeUser(User user)
-        {
+         public async Task<User> CreataeUser(User user)
+         {
 
             return await usersRepository.CreataeUser(user);
 
 
-        }
+         }
 
         public async Task<User> SignIN(User data)
         {

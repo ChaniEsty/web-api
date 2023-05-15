@@ -28,7 +28,7 @@ public class CategoriesController : ControllerBase
             List<Category> categories = await _categoryService.GetCategories();
             List<CategoryDto> categoriesDto =_mapper.Map<List<Category>,List<CategoryDto>>(categories);
             return categories == null ? NoContent() : Ok(categoriesDto);
-
+            
     }
 
     // GET api/<CategoriesController>/5

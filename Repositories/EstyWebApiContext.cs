@@ -15,7 +15,6 @@ public partial class EstyWebApiContext : DbContext
         : base(options)
     {
     }
-
     public virtual DbSet<Category> Categories { get; set; }
 
     public virtual DbSet<Order> Orders { get; set; }
