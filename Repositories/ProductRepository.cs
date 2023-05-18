@@ -28,7 +28,7 @@ namespace Repositories
         public async Task<Product> GetProductById(int id)
         {
             return await _estyWebApiContext.Products.FindAsync(id);
-            //return await _estyWebApiContext.Products.Include(product => product.Category).FindAsync(id);
+           // return await _estyWebApiContext.Products.Include(product => product.Category).FindAsync(id);
         }
         public async Task<Product> CreateProduct(Product product)
         {

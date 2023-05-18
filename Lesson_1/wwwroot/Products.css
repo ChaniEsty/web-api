@@ -52,7 +52,7 @@ p.description {
 }
 
 .bar::before {
-    content: 'quick food';
+    content: 'Fast Food';
     color: white;
     /* display: inline-block; */
     position: absolute;

@@ -7,7 +7,7 @@ const loadData = async () => {
 const itemCount = () => {
     const basket = JSON.parse(sessionStorage.getItem('basket') || '[]');
     let count = 0;
-    basket.forEach(p =>count+= parseInt(p.quantity));
+    basket.forEach(p =>count+= parseInt(p.quentity));
     document.querySelector('#ItemsCountText').innerText = count;
 }
 window.addEventListener("load", loadData)
@@ -44,15 +44,15 @@ const removeProducts = () => {
     productsToRemove.forEach(product => document.querySelector("#PoductList").removeChild(product));
 }
 const addToCart = (product) => {
-    product.quantity = 1;
+    product.quentity = 1;
     basket = JSON.parse(sessionStorage.getItem('basket') || '[]');
     const bagFiltered = basket.filter(p => p.id == product.id);
     if (bagFiltered.length == 0) {
-        product.quantity = 1;
+        product.quentity = 1;
         basket.push(product);
     }
     else {
-        bagFiltered[0].quantity++;
+        bagFiltered[0].quentity++;
     }
     sessionStorage.setItem("basket", JSON.stringify(basket));
     addItemCount();
@@ -90,7 +90,8 @@ async function filterProducts() {
     checkbox.forEach(c => { if (c.querySelector("input").checked) categories.push(parseInt(c.querySelector("input").id)); })
     console.log(categories);
     let url = "api/Products?";
-    categories.forEach(category => { url.endsWith("?") ?url += `categories=${category}`:url += `&categories=${category}` });
+    if (categories)
+        categories.forEach(category => { url.endsWith("?") ?url += `categories=${category}`: url += `&categories=${category}` });
     if (productName)
         url.endsWith("?") ? url += `productName=${productName}` : url += `&productName=${productName}` 
     if (minPrice)

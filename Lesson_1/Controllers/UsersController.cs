@@ -15,11 +15,12 @@ namespace Lesson1_login.Controllers
     [ApiController]
     public class UsersController : ControllerBase
     {
-
+        private ILogger<UsersController> _logger;
         private IUsersService _usersService;
         private IMapper _mapper;
-        public UsersController(IUsersService usersService, IMapper mapper)
+        public UsersController(IUsersService usersService, IMapper mapper, ILogger<UsersController> logger)
         {
+            _logger = logger;
             _usersService = usersService;
             _mapper = mapper;
         }
@@ -28,6 +29,7 @@ namespace Lesson1_login.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<UserDto>> Get(int id)
         {
+           
             User user = await _usersService.GetUserById(id);
             UserDto userDto = _mapper.Map<User, UserDto>(user);
             return user == null ? NotFound() :userDto;
@@ -46,6 +48,9 @@ namespace Lesson1_login.Controllers
         [Route("signIn")]
        public async Task<ActionResult<UserDto>> SignIn([FromBody] LoginDto logInUser)
        {
+            _logger.LogInformation($"{logInUser.Email} logging in");
+            //int y = 0;
+            //int x = 5 / y;
             User user = _mapper.Map<LoginDto, User>(logInUser);
             User createdUser =await _usersService.SignIN(user);
             UserDto userDto= _mapper.Map<User, UserDto>(createdUser);

@@ -9,13 +9,12 @@ namespace DTO
 {
     public class OrderDto
     {
-        public int Id { get; set; }
 
         public int UserId { get; set; }
 
-        public int Ordersum { get; set; }
+        public int OrderSum { get; set; }
         
-        public virtual ICollection<OrderItem> OrderItems { get; } = new List<OrderItem>();
+        public virtual ICollection<OrderItemDto> OrderItems { get; set; } = new List<OrderItemDto>();
 
     }
 }

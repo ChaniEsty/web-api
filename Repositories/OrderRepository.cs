@@ -17,7 +17,7 @@ namespace Repositories
         }
         public async Task<List<Order>> GetOrders()
         {
-            return await _estyWebApiContext.Orders.Include(order => order.User).ToListAsync();
+            return await _estyWebApiContext.Orders.Include(order => order.User).Include(order => order.OrderItems).ToListAsync();
         }
         public async Task<Order> GetOrderById(int id)
         {
