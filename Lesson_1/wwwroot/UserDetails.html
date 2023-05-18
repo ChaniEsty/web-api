@@ -4,16 +4,65 @@
     <meta charset="utf-8" />
     <title></title>
     <script src="Login.js"></script>
+    <style>
+        body {
+            background-color: #f9f9f9;
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+        }
+
+        #update-form {
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+            padding: 20px;
+            width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+            #update-form h2{
+                margin-top: 0;
+                color: #333;
+            }
+
+            #update-form input{
+                width: 100%;
+                padding: 10px;
+                margin-bottom: 10px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+                box-sizing: border-box;
+                font-size: 16px;
+            }
+
+            #update-form button{
+                background-color: #4CAF50;
+                color: #fff;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 5px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+
+                #update-form button:hover{
+                    background-color: #3e8e41;
+                }
+
+       
+    </style>
 </head>
 <body onload="load()">
-    <div style="display:inline; margin:auto;">
+    <div id="update-form">
+        <h2>Update</h2>
         <label>email</label>
         <input id="email" type="email" placeholder="email" /><br /><br />
         <label>password</label>
         <input id="password" type="password" placeholder="password" /><br /><br />
-        <label>firstName</label>
+        <label>first name</label>
         <input id="firstName" type="text" placeholder="first name" /><br /><br />
-        <label>lastName</label>
+        <label>last name</label>
         <input id="lastName" type="text" placeholder="last name" /><br /><br />
         <button id="logIn" onclick="update()">update</button>
         <button id="shop" onclick="shop()">shop</button>
