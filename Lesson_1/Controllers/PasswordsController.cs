@@ -17,9 +17,13 @@ public class PasswordsController : ControllerBase
     }
 
     [HttpPost]
-    public int GetPasswordStrength([FromBody] string password)
+    public ActionResult<int> GetPasswordStrength([FromBody] string password)
     {
-            return _passwordsService.GetPasswordStrength(password);
+            var strength= _passwordsService.GetPasswordStrength(password);
+            if (strength < 2)
+                return BadRequest("password not strong");
+            else
+                return strength;
 
     }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Entities;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace Repositories;
 

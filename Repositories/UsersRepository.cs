@@ -24,7 +24,7 @@ namespace Repositories
         
         public async Task<User> CreataeUser(User user)
         {
-            await estyWebApiContext.AddAsync(user);
+            await estyWebApiContext.Users.AddAsync(user);
             await estyWebApiContext.SaveChangesAsync();
             return user;
         }

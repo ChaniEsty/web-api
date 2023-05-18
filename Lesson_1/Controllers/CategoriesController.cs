@@ -47,7 +47,7 @@ public class CategoriesController : ControllerBase
             Category Newcategory = _mapper.Map<CategoryDto, Category>(NewcategoryDto);
             Category category = await _categoryService.CreateCategory(Newcategory);
             CategoryDto categoryDto = _mapper.Map<Category, CategoryDto>(category);
-            return CreatedAtAction(nameof(Get), new {id=categoryDto.Id},categoryDto);
+            return CreatedAtAction(nameof(Get), new {id=category.Id},categoryDto);
     }
 }
 }

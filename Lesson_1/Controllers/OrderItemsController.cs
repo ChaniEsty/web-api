@@ -38,14 +38,6 @@ public class OrderItemsController : ControllerBase
             return orderItem == null ? NoContent() : Ok(orderItemDto);
         }
 
-        // POST api/<CategoriesController>
-        [HttpPost]
-        public async Task<ActionResult<OrderItemDto>> Post([FromBody] OrderItemDto newOrderItemDto)
-        {
-            OrderItem newOrderItem = _mapper.Map<OrderItemDto, OrderItem>(newOrderItemDto);
-            OrderItem orderItem = await _orderItemService.CreateOrderItem(newOrderItem);
-            OrderItemDto orderItemDto = _mapper.Map<OrderItem, OrderItemDto>(orderItem);
-            return CreatedAtAction(nameof(Get), new { id = orderItemDto.Id }, orderItemDto);
-        }
+        
     }
 }

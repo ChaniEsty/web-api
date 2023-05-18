@@ -6,9 +6,13 @@
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(password)
         })
-    const score = await res.json();
-    const progress = document.getElementById("progress");
-    progress.value=score;
+    if (!res.ok)
+        alert("password not strong");
+    else {
+        const score = await res.json();
+        const progress = document.getElementById("progress");
+        progress.value = score;
+    }
 }
 const signUp = async () => {
     let email = document.getElementById("email").value;
@@ -65,8 +69,8 @@ const load = async () => {
     const user = await JSON.parse(sessionStorage.getItem('user'));
     document.getElementById('email').setAttribute('value', user.email);
     document.getElementById('password').setAttribute('value', user.password);
-    document.getElementById('firstName').setAttribute('value', user.firstName);
-    document.getElementById('lastName').setAttribute('value', user.lastName);
+    document.getElementById('firstName').setAttribute('value', user.firstname);
+    document.getElementById('lastName').setAttribute('value', user.lastname);
 }
 const update = async () => {
 
