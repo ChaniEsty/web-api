@@ -21,6 +21,8 @@ builder.Services.AddTransient<IOrderRepository, OrderRepository>();
 builder.Services.AddTransient<IOrderService, OrderService>();
 builder.Services.AddTransient<IOrderItemRepository, OrderItemRepository>();
 builder.Services.AddTransient<IOrderItemService, OrderItemService>();
+builder.Services.AddTransient<IRatingService, RatingService>();
+builder.Services.AddTransient<IRatingRepository, RatingRepository>();
 builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 builder.Services.AddDbContext<EstyWebApiContext>(option=>option.UseSqlServer(builder.Configuration.GetConnectionString("FoodShop")));
@@ -35,7 +37,7 @@ if (app.Environment.IsDevelopment())
 }
 // Configure the HTTP request pipeline.
 app.UseMiddleware();
-
+app.UseRatingMiddleware();
 app.UseStaticFiles();
 
 app.UseHttpsRedirection();
