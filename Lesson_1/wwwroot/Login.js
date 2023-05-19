@@ -67,6 +67,7 @@ const signIn = async () => {
 const load = async () => {
 
     const user = await JSON.parse(sessionStorage.getItem('user'));
+    document.getElementById('user').innerText= `hello ${user.firstname}`;
     document.getElementById('email').setAttribute('value', user.email);
     document.getElementById('password').setAttribute('value', user.password);
     document.getElementById('firstName').setAttribute('value', user.firstname);
@@ -89,7 +90,8 @@ const update = async () => {
             headers: { 'Content-Type': 'application/json' },
             body: user
         })
-
+    if (response.ok)
+        alert("user updated");
 
 
 }

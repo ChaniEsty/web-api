@@ -1,16 +1,16 @@
-﻿
-const loadData = async () => {
+﻿const loadData = async () => {
     await getCategories();
     await getProducts();
     itemCount();
 }
+window.addEventListener("load", loadData);
 const itemCount = () => {
     const basket = JSON.parse(sessionStorage.getItem('basket') || '[]');
     let count = 0;
     basket.forEach(p =>count+= parseInt(p.quentity));
     document.querySelector('#ItemsCountText').innerText = count;
 }
-window.addEventListener("load", loadData)
+
 const getCategories = async () => {
     const res = await fetch("api/categories");
     if (res.ok) {

@@ -63,29 +63,33 @@ const buildOrderItems=(orderItems) =>{
 }
 
 const placeOrder = async () => {
-    const basket = JSON.parse(sessionStorage.getItem('basket')||'[]');
+    const basket = JSON.parse(sessionStorage.getItem('basket') || '[]');
     const orderItems = basket.map(p => {
         return {
-            productId:p.id,
-            quentity:p.quentity
+            productId: p.id,
+            quentity: p.quentity
         }
     })
     console.log(orderItems);
     const sum = document.querySelector('#totalAmount').innerHTML;
     const user = JSON.parse(sessionStorage.getItem('user'));
-    const order = {
-        userId: user.id,
-        orderSum: sum,
-        orderItems:orderItems
+    if (user == null)
+        alert("user not registerd");
+    else {
+        const order = {
+            userId: user.id,
+            orderSum: sum,
+            orderItems: orderItems
+        }
+        console.log(order);
+        const res = await fetch('api/Orders', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(order)
+        })
+        if (res.ok)
+            alert('הזמנה בוצעה בהצלחה');
+        else
+            alert('הזמנה נכשלה');
     }
-    console.log(order);
-    const res = await fetch('api/Orders', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(order)
-    })
-    if (res.ok)
-        alert('הזמנה בוצעה בהצלחה');
-    else
-        alert('הזמנה נכשלה');
-}  
+}
